@@ -64,8 +64,6 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 | Defeitos corrigidos | nº de defeitos corrigidos ÷ nº de defeitos encontrados |  |  |  |
 | Tempo médio de correção (MTTR) | soma dos tempos de correção ÷ defeitos corrigidos |  |  |  |
 
-Evidências: [levantamento dos testes](<evidencias/Screenshot From 2026-11-02 14-06-29.png>), [indicadores da API](<evidencias/Screenshot From 2026-11-02 14-06-37.png>) e [indicadores do mobile](<evidencias/Screenshot From 2026-11-02 14-06-42.png>).
-
 # 6. Considerações finais
 
 > ✏️ Resuma os resultados obtidos, os principais problemas encontrados e as melhorias previstas para os próximos ciclos.
