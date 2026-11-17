@@ -2,15 +2,11 @@
 
 Anexo da [documentação principal](README.md) com o registro dos testes realizados e seus resultados, elaborado para a disciplina de Qualidade e Testes de Software.
 
-> ✏️ Os blocos marcados com ✏️ são instruções de preenchimento e podem ser removidos. Duplique as linhas das tabelas conforme necessário.
-
 | Equipe | Versão do documento | Última atualização |
 | --- | --- | --- |
 |  |  |  |
 
 # 1. Estratégia de testes
-
-> ✏️ Indique, para cada componente, os níveis de teste aplicados (unitário, integração, sistema/E2E, aceitação), as ferramentas utilizadas e o ambiente onde os testes são executados (os ambientes estão descritos na seção [11. Aplicação](README.md#11-aplicação) do README).
 
 | Componente | Níveis de teste | Ferramentas | Ambiente |
 | --- | --- | --- | --- |
@@ -20,8 +16,6 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 | Mobile — Equipes | Unitário e integração | Flutter Test e GitHub Actions | Staging |
 
 # 2. Casos de teste
-
-> ✏️ Liste os casos de teste usando o padrão de ID `CT-<COMPONENTE>-<NÚMERO>` (API, WEB, MOB). Relacione cada caso a um requisito do [README](README.md#2-requisitos) (ex.: RF 1, RNF 2). Para testes automatizados, informe o arquivo ou a suíte correspondente.
 
 | ID | Componente | Requisito | Nível | Descrição | Resultado esperado | Automatizado |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -57,8 +51,6 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 
 # 3. Execução e resultados
 
-> ✏️ Registre cada execução dos casos de teste. Status: **Passou**, **Falhou** ou **Bloqueado**. Toda falha deve apontar o defeito correspondente na seção 4. Evidências (capturas de tela, relatórios de cobertura, logs) podem ser salvas em `assets/` e referenciadas pelo link.
-
 | Data | Caso de teste | Versão | Resultado obtido | Status | Evidência | Defeito |
 | --- | --- | --- | --- | --- | --- | --- |
 | 15/11/2026 | CT-WEB-002 — unitários no CI | `3cc8e7e30a` | Teste de conversão de datas reprovado no runner do GitHub Actions (fuso UTC) | Falhou | GitHub Actions | DEF-WEB-003 |
@@ -71,8 +63,6 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 | 15/11/2026 | CT-MOB-007 a CT-MOB-012 — suítes de equipes | `8642a8076c` | 109 testes aprovados | Passou | [Run Release APK](https://github.com/corevent/corevent_work_app/actions/runs/43794936441) | — |
 
 # 4. Defeitos encontrados
-
-> ✏️ Registre os defeitos identificados nos testes ou em revisões. Severidade: **Crítica**, **Alta**, **Média** ou **Baixa**. Status: **Aberto**, **Em correção** ou **Corrigido**.
 
 | ID | Descrição | Componente | Caso de teste | Severidade | Status | Data de correção |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -91,8 +81,6 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 | DEF-MOB-009 | Falha no upload de APK com acesso restrito ao bucket | Equipes | Pipeline de distribuição | Alta | Corrigido — [PR #5](https://github.com/corevent/corevent_work_app/pull/5) | 02/11/2026 |
 
 # 5. Métricas
-
-> ✏️ Calcule os indicadores a partir das seções 2, 3 e 4 ao final de cada ciclo de testes.
 
 ## Levantamento dos testes
 
@@ -115,7 +103,5 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 | Tempo médio de correção (MTTR) | soma dos tempos de correção ÷ defeitos corrigidos |  | **A informar** (média da equipe) | **1h11min — 71 minutos** (média informada pela equipe) | **1h02min — 62 minutos** (média informada pela equipe) |
 
 # 6. Considerações finais
-
-> ✏️ Resuma os resultados obtidos, os principais problemas encontrados e as melhorias previstas para os próximos ciclos.
 
 A preencher.
