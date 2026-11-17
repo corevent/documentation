@@ -4,13 +4,13 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 
 | Equipe | Versão do documento | Última atualização |
 | --- | --- | --- |
-|  |  |  |
+| Corevent | 1.1 | 17/11/2026 |
 
 # 1. Estratégia de testes
 
 | Componente | Níveis de teste | Ferramentas | Ambiente |
 | --- | --- | --- | --- |
-| API (backend) |  |  |  |
+| API (backend) | Unitário, sistema (HTTP/E2E) e verificação estática de código | Jest, Supertest, NestJS Testing, ts-jest e GitHub Actions | Staging / local com PostgreSQL |
 | Aplicação Web | Unitário, integração, sistema (HTTP) e E2E | Jest, Vitest, Testing Library, MSW, Supertest, Cypress e GitHub Actions | Staging |
 | Mobile — Participantes | Unitário, integração e E2E | Flutter Test, Integration Test, Mocktail e GitHub Actions | Staging |
 | Mobile — Equipes | Unitário e integração | Flutter Test e GitHub Actions | Staging |
@@ -19,7 +19,23 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 
 | ID | Componente | Requisito | Nível | Descrição | Resultado esperado | Automatizado |
 | --- | --- | --- | --- | --- | --- | --- |
-| CT-API-001 |  |  |  |  |  |  |
+| CT-API-001 | API | RF 1 / RNF 2 | Sistema | Cadastrar com dados válidos e rejeitar senha fraca, e-mail duplicado e documento inválido | Responder 201 no cadastro válido e 400 nos casos inválidos | Sim — `test/t01-register-valid.e2e-spec.ts` a `test/t04-register-invalid-document.e2e-spec.ts` |
+| CT-API-002 | API | RF 2 / RNF 2 | Sistema | Autenticar com credenciais válidas e inválidas | Retornar access e refresh tokens no login válido e 401 sem tokens no inválido | Sim — `test/t05-login-valid.e2e-spec.ts` e `test/t06-login-invalid.e2e-spec.ts` |
+| CT-API-003 | API | RF 5 / RF 6 / RNF 2 | Sistema | Atualizar perfil e recusar troca de senha com senha atual incorreta | Persistir o nome atualizado e responder 400 na senha atual inválida | Sim — `test/t07-update-profile.e2e-spec.ts` e `test/t08-change-password-wrong-current.e2e-spec.ts` |
+| CT-API-004 | API | RF 3 / RF 4 / RF 10 / RNF 2 | Sistema | Criar e editar eventos próprios, consultar detalhes e bloquear criação sem autenticação ou edição alheia | Criar/listar/editar o próprio evento, retornar detalhes antes da compra e responder 401/400 nos acessos indevidos | Sim — `test/t09-create-event.e2e-spec.ts` a `test/t13-edit-other-organizer-event.e2e-spec.ts` |
+| CT-API-005 | API | RF 7 / RF 12 / RNF 2 | Sistema | Convidar colaborador, bloquear convite sem permissão e aceitar convite | Criar convite pendente, responder 403 a não organizador e vincular o staff após o aceite | Sim — `test/t14-invite-staff.e2e-spec.ts` a `test/t16-accept-staff-invitation.e2e-spec.ts` |
+| CT-API-006 | API | RF 8 / RF 9 / RNF 2 | Sistema | Criar tipo de ingresso, comprar gratuito/pago, impedir oversell e duplicidade e proteger pedido alheio | Ajustar estoque, marcar gratuito como pago, criar checkout pendente e responder 400/403 nos casos inválidos | Sim — `test/t17-create-ticket-type.e2e-spec.ts` a `test/t23-view-other-user-order.e2e-spec.ts` |
+| CT-API-007 | API | RF 8 / RNF 2 | Sistema | Confirmar pagamento via webhook, garantir idempotência e rejeitar assinatura inválida | Marcar order como paga uma vez, decrementar estoque uma vez e responder 401 sem token válido | Sim — `test/t24-webhook-mark-paid.e2e-spec.ts` a `test/t26-webhook-invalid-signature.e2e-spec.ts` e `test/t38-webhook-concurrent-idempotency.e2e-spec.ts` |
+| CT-API-008 | API | RF 13 / RF 15 / RF 16 / RF 18 / RNF 2 | Sistema | Realizar check-in válido, impedir duplicidade/concorrência, order não paga e acessos sem permissão | Aceitar exatamente um check-in válido e responder 409/400/401/403 nos demais cenários | Sim — `test/t27-checkin-valid.e2e-spec.ts` a `test/t30-checkin-forbidden.e2e-spec.ts`, `test/t37-checkin-concurrent.e2e-spec.ts`, `test/t39-checkin-unauthenticated.e2e-spec.ts` e `test/t40-checkin-other-event-staff.e2e-spec.ts` |
+| CT-API-009 | API | RNF 3 | Sistema | Expor health check com banco disponível, indisponível e contrato JSON estruturado | Responder 200 com status saudável, 5xx com banco fora e JSON com status, versão, uptime e dependências | Sim — `test/t31-health-check.e2e-spec.ts`, `test/t36-health-database-down.e2e-spec.ts` e `test/t44-health-structured-json.e2e-spec.ts` |
+| CT-API-010 | API | RNF 2 | Sistema | Aplicar rate limit em recuperação de e-mail, login e webhook público | Responder 429 após exceder o limite de cada rota | Sim — `test/t32-rate-limit-forgot-password.e2e-spec.ts`, `test/t41-rate-limit-login.e2e-spec.ts` e `test/t46-webhook-rate-limit.e2e-spec.ts` |
+| CT-API-011 | API | RNF 1 / RNF 2 | Sistema | Validar paginação, rejeitar campos não permitidos e padronizar erro de validação | Retornar meta de paginação coerente e body 400 consistente do ValidationPipe | Sim — `test/t33-paginated-listing.e2e-spec.ts`, `test/t34-forbid-non-whitelisted.e2e-spec.ts` e `test/t43-validation-error-contract.e2e-spec.ts` |
+| CT-API-012 | API | RNF 1 | Sistema | Disponibilizar documentação OpenAPI/Swagger com caminhos e códigos críticos | Servir UI/JSON da documentação e descrever auth, orders, check-in, webhook e status codes | Sim — `test/t35-api-documentation.e2e-spec.ts` e `test/t42-api-docs-critical-paths.e2e-spec.ts` |
+| CT-API-013 | API | RNF 2 | Sistema | Enviar headers de segurança (Helmet) e responder preflight CORS | Incluir headers padrão do navegador e `Access-Control-Allow-Origin` no preflight | Sim — `test/t45-security-headers.e2e-spec.ts` e `test/t48-cors-enabled.e2e-spec.ts` |
+| CT-API-014 | API | RNF 1 | Verificação | Verificar limite de linhas dos services críticos (orders, tickets e events) | Manter cada service com no máximo 200 linhas | Sim — `test/t47-service-max-lines.e2e-spec.ts` |
+| CT-API-015 | API | RF 8 / RNF 2 | Sistema | Reservar estoque no pedido pago, não emitir tickets antes do pagamento e proteger o último ingresso | Decrementar estoque na reserva, emitir tickets só após PAID e rejeitar o segundo comprador do último item | Sim — `test/t49-paid-order-stock-before-payment.e2e-spec.ts` a `test/t51-last-ticket-double-payment.e2e-spec.ts` |
+| CT-API-016 | API | RF 3 / RF 4 / RF 5 | Sistema | Exigir timezone em datas de evento e gerenciar upload de avatar/banner com URL assinada | Responder 400 sem timezone; autenticar, validar tipo e titularidade e assinar a leitura após o upload | Sim — `test/t52-strict-event-dates.e2e-spec.ts` e `test/t53-image-upload.e2e-spec.ts` |
+| CT-API-017 | API | RF 1 / RF 5 / RNF 2 | Unitário | Validar datas estritas, storage com URL assinada, seed de política etária e limpeza E2E | Aceitar apenas datas válidas, assinar chaves internas e preservar regras de seed/cleanup | Sim — `src/**/*.spec.ts` |
 | CT-WEB-001 | Web | RF 1 / RNF 2 | Unitário | Validar CPF, CNPJ, e-mail, telefone, chave Pix, datas e regras de senha | Rejeitar dados inválidos com as mesmas regras da API | Sim — `tests/unit/validators.test.ts` |
 | CT-WEB-002 | Web | RF 3 / RF 5 | Unitário | Aplicar máscaras e formatar datas, moeda e números | Formatar valores no padrão da interface e converter datas para ISO sem deslocamento de fuso | Sim — `tests/unit/format.test.ts` |
 | CT-WEB-003 | Web | RNF 1 | Unitário | Interpretar e traduzir os erros retornados pela API | Exibir mensagens em português e mensagens genéricas para falhas de rede, servidor e tempo esgotado | Sim — `tests/unit/errors.test.ts` |
@@ -53,6 +69,14 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 
 | Data | Caso de teste | Versão | Resultado obtido | Status | Evidência | Defeito |
 | --- | --- | --- | --- | --- | --- | --- |
+| 02/11/2026 | CT-API-001 a CT-API-015 — E2E com cobertura (`pnpm test:e2e:cov`) | `d8db7cd` / suíte T01–T51 | 39 testes aprovados e 15 reprovados (54 casos); cobertura 5923/7178 linhas | Parcial | Execução local — relatório `coverage/` | DEF-API-001 a DEF-API-008 |
+| 02/11/2026 | CT-API-007 / CT-API-008 / CT-API-009 / CT-API-010 / CT-API-013 / CT-API-014 / CT-API-015 — falhas da 1ª rodada | `d8db7cd` | Webhook sem assinatura (200), health texto plano, Helmet/CORS ausentes, sem 429 no webhook, services > 200 linhas, tickets antes do pagamento e contrato de check-in | Falhou | Execução local — `pnpm test:e2e` | DEF-API-001 a DEF-API-008 |
+| 17/11/2026 | CT-API-017 — unitários (Jest) | `7aff240` | 36 testes aprovados (6 suítes) | Passou | Execução local — `pnpm test` | — |
+| 17/11/2026 | CT-API-001 a CT-API-016 — E2E regressão (`pnpm test:e2e`) | `7aff240` | 56 testes aprovados e 7 reprovados (63 casos; 48 suítes OK, 5 suítes com falha) | Parcial | Execução local — `pnpm test:e2e` (~401 s) | DEF-API-005, DEF-API-009, DEF-API-010 |
+| 17/11/2026 | CT-API-005 — aceitar convite de colaborador | `7aff240` | Aceite retornou 201; o teste e o contrato esperavam 200 | Falhou | `test/t16-accept-staff-invitation.e2e-spec.ts` | DEF-API-009 |
+| 17/11/2026 | CT-API-009 — health com banco disponível / indisponível | `7aff240` | T31 ainda exige texto plano `OK` (API já devolve JSON); T36 recebeu 200 ao simular banco fora | Falhou | `test/t31-health-check.e2e-spec.ts` e `test/t36-health-database-down.e2e-spec.ts` | DEF-API-010 |
+| 17/11/2026 | CT-API-012 — documentação crítica (status codes) | `7aff240` | Descrição 401 do webhook no OpenAPI diverge do texto esperado pelo teste | Falhou | `test/t42-api-docs-critical-paths.e2e-spec.ts` | — |
+| 17/11/2026 | CT-API-014 — limite de linhas por service | `7aff240` | `orders` 523, `tickets` 389 e `events` 419 linhas (limite 200) | Falhou | `test/t47-service-max-lines.e2e-spec.ts` | DEF-API-005 |
 | 15/11/2026 | CT-WEB-002 — unitários no CI | `3cc8e7e30a` | Teste de conversão de datas reprovado no runner do GitHub Actions (fuso UTC) | Falhou | GitHub Actions | DEF-WEB-003 |
 | 17/11/2026 | CT-WEB-001 a CT-WEB-005 — unitários (Jest) | `2d68bb77d5` | 61 testes aprovados (5 suítes) | Passou | Execução local — `pnpm test:unit` | — |
 | 17/11/2026 | CT-WEB-006 a CT-WEB-010 — integração (Vitest) | `2d68bb77d5` | 25 testes aprovados (5 arquivos) | Passou | Execução local — `pnpm test:integration` | — |
@@ -66,7 +90,16 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 
 | ID | Descrição | Componente | Caso de teste | Severidade | Status | Data de correção |
 | --- | --- | --- | --- | --- | --- | --- |
-| DEF-001 |  |  |  |  |  |  |
+| DEF-API-001 | Webhook PagBank processava notificações sem validar assinatura/token de autenticidade | API | CT-API-007 | Alta | Corrigido — [PR #32](https://github.com/corevent/api-corevent/pull/32) (`f1b9f77`) | 17/11/2026 |
+| DEF-API-002 | Health check retornava texto plano (`OK`) em vez de JSON estruturado com status, versão, uptime e dependências | API | CT-API-009 | Média | Corrigido — commit `5025481` | 22/09/2026 |
+| DEF-API-003 | Headers de segurança do Helmet ausentes nas respostas HTTP | API | CT-API-013 | Média | Corrigido — [PR #32](https://github.com/corevent/api-corevent/pull/32) (`f1b9f77`) | 17/11/2026 |
+| DEF-API-004 | Endpoint público de webhook sem rate limit (11ª chamada ainda retornava 200) | API | CT-API-010 | Alta | Corrigido — [PR #32](https://github.com/corevent/api-corevent/pull/32) (`f1b9f77`) | 17/11/2026 |
+| DEF-API-005 | Services críticos (`orders`, `tickets`, `events`) acima do limite de 200 linhas definido nas regras do projeto | API | CT-API-014 | Baixa | Aberto | — |
+| DEF-API-006 | Bootstrap sem CORS habilitado, falhando o preflight do navegador | API | CT-API-013 | Alta | Corrigido — commit `84dd5c2` / [PR #32](https://github.com/corevent/api-corevent/pull/32) | 15/11/2026 |
+| DEF-API-007 | Pedido pago criava tickets `PENDING` antes da confirmação do pagamento, gerando ingressos órfãos | API | CT-API-015 | Alta | Corrigido — commit `b630bf1` | 23/09/2026 |
+| DEF-API-008 | Check-in respondia 201 enquanto a documentação e o contrato dos testes exigiam 200 | API | CT-API-008 | Baixa | Corrigido — [PR #32](https://github.com/corevent/api-corevent/pull/32) (`f1b9f77`) | 17/11/2026 |
+| DEF-API-009 | Aceite de convite de colaborador responde 201 em vez de 200 | API | CT-API-005 | Baixa | Aberto | — |
+| DEF-API-010 | Health com banco indisponível continua respondendo 200 (esperado ≥ 500 na suíte) | API | CT-API-009 | Média | Aberto | — |
 | DEF-WEB-001 | Tempo esgotado não reconhecido quando a exceção vem de outro contexto (`instanceof DOMException`), exibindo erro genérico nas requisições e no envio de imagens | Web | CT-WEB-007 | Média | Corrigido — commit `3cc8e7e` | 15/11/2026 |
 | DEF-WEB-002 | Diálogo de confirmação sem nome acessível (`aria-labelledby`) | Web | CT-WEB-009 | Baixa | Corrigido — commit `3cc8e7e` | 15/11/2026 |
 | DEF-WEB-003 | Fuso horário dos testes unitários definido tarde demais, quebrando a conversão de datas no CI (UTC) | Web | CT-WEB-002 | Baixa | Corrigido — commit `2d68bb7` | 16/11/2026 |
@@ -91,6 +124,7 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 | Mobile — Participantes: suítes locais e integração controlada | 255 | 255 | 255 | 0 | 7 | 12.946 |
 | Mobile — Participantes: E2E de 13/10 | 10 | 10 | 10 | 0 | — | — |
 | Mobile — Equipes | 109 | 109 | 109 | 0 | 2 | 8.823 |
+
 ## Indicadores de qualidade
 
 | Indicador | Cálculo | API | Web | Mobile — Participantes | Mobile — Equipes |
@@ -99,9 +133,11 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 | Taxa de aprovação | (casos aprovados ÷ casos executados) × 100 | 39 ÷ 54 × 100 ≈ **72,22%** | 113 ÷ 113 × 100 = **100%** | 255 ÷ 255 × 100 = **100%**; E2E: 10 ÷ 10 × 100 = **100%** | 109 ÷ 109 × 100 = **100%** |
 | Densidade de defeitos (DD) | defeitos encontrados ÷ linhas de código | 8 ÷ 7178 ≈ **0,0011** (≈ 1,11 por KLOC) | 3 ÷ 5.361 ≈ **0,000560** (**0,56 por KLOC**) | 7 ÷ 12.946 ≈ **0,000541** (**0,54 por KLOC**) | 2 ÷ 8.823 ≈ **0,000227** (**0,23 por KLOC**) |
 | Cobertura de testes | (linhas cobertas ÷ linhas medidas no relatório) × 100 | 5923 ÷ 7178 × 100 ≈ **82,52%** | 692 ÷ 1.413 × 100 ≈ **48,97%** (unitários + integração) | 4.540 ÷ 5.266 × 100 ≈ **86,21%** | 1.845 ÷ 2.829 × 100 ≈ **65,22%** |
-| Defeitos corrigidos | nº de defeitos corrigidos ÷ nº de defeitos encontrados |  | 3 ÷ 3 = **100%** | 7 ÷ 7 = **100%** | 2 ÷ 2 = **100%** |
-| Tempo médio de correção (MTTR) | soma dos tempos de correção ÷ defeitos corrigidos |  | **A informar** (média da equipe) | **1h11min — 71 minutos** (média informada pela equipe) | **1h02min — 62 minutos** (média informada pela equipe) |
+| Defeitos corrigidos | nº de defeitos corrigidos ÷ nº de defeitos encontrados | 7 ÷ 8 = **87,5%** | 3 ÷ 3 = **100%** | 7 ÷ 7 = **100%** | 2 ÷ 2 = **100%** |
+| Tempo médio de correção (MTTR) | soma dos tempos de correção ÷ defeitos corrigidos | **≈ 62 dias** (433 ÷ 7; detecção 31/08/2026 → datas de correção dos 7 defeitos) | **A informar** (média da equipe) | **1h11min — 71 minutos** (média informada pela equipe) | **1h02min — 62 minutos** (média informada pela equipe) |
 
 # 6. Considerações finais
 
-A preencher.
+A primeira rodada da API (54 casos E2E T01–T51) executou 100% do planejado, com aprovação de ≈72,22% e cobertura de ≈82,52% das linhas medidas. Os oito defeitos concentraram-se em segurança (webhook, Helmet, CORS, rate limit), contrato do health check, emissão antecipada de tickets e tamanho dos services. Sete foram corrigidos — sobretudo no endurecimento da [PR #32](https://github.com/corevent/api-corevent/pull/32) — com MTTR de ≈62 dias entre a detecção (31/08/2026) e as datas de correção.
+
+Na regressão de 17/11/2026 (`7aff240`), os unitários passaram (36/36) e o E2E obteve 56 aprovados e 7 reprovados em 63 casos. Permanecem abertos DEF-API-005 (services > 200 linhas), DEF-API-009 (aceite de convite 201≠200) e DEF-API-010 (health com banco fora ainda em 200); T31 e T42 falharam por asserções desatualizadas frente ao contrato JSON/OpenAPI já corrigido. Prioridade seguinte: alinhar health/status HTTP e HttpCode do aceite, e reduzir o tamanho dos services.
