@@ -4,7 +4,7 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 
 | Equipe | Versão do documento | Última atualização |
 | --- | --- | --- |
-| Corevent | 1.1 | 17/11/2026 |
+| Corevent | 1.2 | 20/11/2026 |
 
 # 1. Estratégia de testes
 
@@ -138,6 +138,6 @@ Anexo da [documentação principal](README.md) com o registro dos testes realiza
 
 # 6. Considerações finais
 
-A primeira rodada da API (54 casos E2E T01–T51) executou 100% do planejado, com aprovação de ≈72,22% e cobertura de ≈82,52% das linhas medidas. Os oito defeitos concentraram-se em segurança (webhook, Helmet, CORS, rate limit), contrato do health check, emissão antecipada de tickets e tamanho dos services. Sete foram corrigidos — sobretudo no endurecimento da [PR #32](https://github.com/corevent/api-corevent/pull/32) — com MTTR de ≈62 dias entre a detecção (31/08/2026) e as datas de correção.
+Os testes contemplaram os quatro componentes do Corevent: API, aplicação Web e os aplicativos mobile de participantes e de equipes, com casos automatizados, rastreados aos requisitos e executados localmente e no GitHub Actions. Todos os componentes atingiram 100% de execução do planejado. A Web e os aplicativos mobile obtiveram 100% de aprovação, com todos os defeitos corrigidos, enquanto a API, que concentra as regras de negócio, os pagamentos e o credenciamento, reuniu a maior parte dos defeitos, principalmente de segurança e de contratos HTTP, e evoluiu de ≈72,22% de aprovação na primeira rodada para 56 de 63 casos na regressão.
 
-Na regressão de 17/11/2026 (`7aff240`), os unitários passaram (36/36) e o E2E obteve 56 aprovados e 7 reprovados em 63 casos. Permanecem abertos DEF-API-005 (services > 200 linhas), DEF-API-009 (aceite de convite 201≠200) e DEF-API-010 (health com banco fora ainda em 200); T31 e T42 falharam por asserções desatualizadas frente ao contrato JSON/OpenAPI já corrigido. Prioridade seguinte: alinhar health/status HTTP e HttpCode do aceite, e reduzir o tamanho dos services.
+Os testes cumpriram seu papel de revelar falhas antes do uso real, como as de segurança na API, de robustez na Web e de sessão e distribuição no mobile. Como próximos passos, destacam-se a correção dos três defeitos ainda abertos na API, a atualização dos testes desatualizados em relação ao contrato da API, o aumento da cobertura da Web (≈48,97%) e do aplicativo de equipes (≈65,22%) e a padronização da medição do tempo médio de correção entre os componentes.
