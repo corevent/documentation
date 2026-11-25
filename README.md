@@ -108,7 +108,7 @@ O documento abrange aspectos como especificações técnicas, interfaces do usu�
 
 ![Casos de Uso](assets/casos-de-uso.png)
 
-Figura 2 - Casos de Uso
+Figura 1 - Casos de Uso
 
 Fonte: Os autores (2026).
 
@@ -282,7 +282,7 @@ Segue abaixo alguns dos diagramas BPMN que realizamos para o nosso projeto:
 
 ![Fluxo de compra de ingresso](assets/bpmn/01-compra-ingresso.svg)
 
-Figura 5 - Fluxo de compra de ingresso
+Figura 2 - Fluxo de compra de ingresso
 
 Fonte: Os autores (2026)
 
@@ -295,6 +295,8 @@ Fonte: Os autores (2026)
 
 ![Fluxo de convite de colaborador](assets/bpmn/02-convite-colaborador.svg)
 
+Figura 3 - Fluxo de convite de colaborador
+
 Fonte: Os autores (2026).
 
 [Arquivo editável BPMN](assets/bpmn/02-convite-colaborador.bpmn) · [Imagem em PNG](assets/bpmn/02-convite-colaborador.png)
@@ -305,6 +307,8 @@ Fonte: Os autores (2026).
   <summary><strong>Sessão de credenciamento no totem</strong></summary>
 
 ![Sessão de credenciamento no totem](assets/bpmn/03-sessao-totem.svg)
+
+Figura 4 - Sessão de credenciamento no totem
 
 Fonte: Os autores (2026).
 
@@ -317,7 +321,7 @@ Fonte: Os autores (2026).
 
 ![Checkin Evento](assets/bpmn/04-validacao-qr-code.svg)
 
-Figura 7 – Checkin Evento
+Figura 5 – Checkin Evento
 
 Fonte: Os autores (2026)
 
@@ -336,6 +340,10 @@ Atualmente, o banco de dados de produção é PostgreSQL hospedado na plataforma
 # 6. Diagrama de classes
 
 ![Diagrama de classes do Corevent](assets/classes/01-visao-geral.svg)
+
+Figura 6 - Diagrama de classes do Corevent
+
+Fonte: Os autores (2026).
 
 # 7. Estudo de viabilidade
 
@@ -375,11 +383,17 @@ O projeto pode ser sustentado financeiramente a longo prazo? O projeto apresent
 
 # 8. Regras de negócio (Modelo canvas)
 
-Para a elaboração do modelo de negócio, foi utilizado o Modelo de Negócio Canvas, uma abordagem que permite planejar de forma clara e visual os principais aspectos da aplicação web, incluindo o público-alvo, a proposta de valor, os canais de distribuição, a estrutura de custos e outros elementos essenciais para seu funcionamento.  A Figura 1 apresenta o resumo do modelo de negócios elaborado no Canvas.
+Para a elaboração do modelo de negócio, foi utilizado o Modelo de Negócio Canvas, uma abordagem que permite planejar de forma clara e visual os principais aspectos da aplicação web, incluindo o público-alvo, a proposta de valor, os canais de distribuição, a estrutura de custos e outros elementos essenciais para seu funcionamento.  As Figuras 7 e 8 apresentam o resumo do modelo de negócios elaborado no Canvas.
 
-![Modelo Canvas](assets/modelo-canvas.png)
+![Modelo Canvas - Parte 1](assets/modelo-canvas-1.png)
 
-Figura 1 - Modelo Canvas.
+Figura 7 - Modelo Canvas (parte 1).
+
+Fonte: Os autores (2026).
+
+![Modelo Canvas - Parte 2](assets/modelo-canvas-2.png)
+
+Figura 8 - Modelo Canvas (parte 2).
 
 Fonte: Os autores (2026).
 
@@ -415,13 +429,13 @@ Fontes de renda: Os administradores dos eventos irão receber os valores dos ing
 
 <img src="assets/logo-corevent.png" alt="Logotipo por extenso" width="420">
 
-Figura 8 – Logotipo por extenso
+Figura 9 – Logotipo por extenso
 
 Fonte: Os autores (2026)
 
 <img src="assets/simbolo-corevent.png" alt="Logotipo minimalista" width="120">
 
-Figura 9 – Logotipo minimalista
+Figura 10 – Logotipo minimalista
 
 Fonte: Os autores (2026)
 
@@ -431,13 +445,13 @@ A fonte utilizada para a logo foi a Fredoka, enquanto na aplicação foi utiliza
 
 <img src="assets/tipografia-fredoka.png" alt="Fonte Fredoka" width="500">
 
-Figura 10 – Fonte Fredoka
+Figura 11 – Fonte Fredoka
 
 Fonte: Os autores (2026)
 
 <img src="assets/tipografia-plus-jakarta-sans.png" alt="Fonte Plus Jakarta Sans" width="500">
 
-Figura 11 – Fonte Plus Jakarta Sans
+Figura 12 – Fonte Plus Jakarta Sans
 
 Fonte: Os autores (2026)
 
@@ -445,7 +459,7 @@ Fonte: Os autores (2026)
 
 <img src="assets/paleta-de-cores.png" alt="Cores do projeto" width="640">
 
-Figura 12 – Cores do projeto Fonte: Os autores (2026)
+Figura 13 – Cores do projeto Fonte: Os autores (2026)
 
 ## Personas
 
@@ -453,7 +467,7 @@ Figura 12 – Cores do projeto Fonte: Os autores (2026)
 
 <img src="assets/persona-participante.png" alt="Persona Participante Lucas" width="600">
 
-Figura 3 - Persona Participante Lucas
+Figura 14 - Persona Participante Lucas
 
 Fonte: Os autores (2026).
 
@@ -461,7 +475,7 @@ Fonte: Os autores (2026).
 
 <img src="assets/persona-organizadora.png" alt="Persona Organizadora Mariana" width="600">
 
-Figura 4 - Persona Organizadora Mariana
+Figura 15 - Persona Organizadora Mariana
 
 Fonte: Os autores (2026).
 
@@ -471,25 +485,25 @@ Nosso wireframe da aplicação Mobile para participantes foi realizado utilizand
 
 <img src="assets/tela-inicio.png" alt="Início" width="240">
 
-Figura 13 – Início
+Figura 16 – Início
 
 Fonte: Os autores (2026)
 
 <img src="assets/tela-explorar.png" alt="Explorar" width="240">
 
-Figura 14 – Explorar
+Figura 17 – Explorar
 
 Fonte: Os autores (2026)
 
 <img src="assets/tela-figura-15.png" alt="Ingressos" width="240">
 
-Figura 15 - Ingressos
+Figura 18 - Ingressos
 
 Fonte: Os autores (2026)
 
 <img src="assets/tela-cadastro.png" alt="Formulário de cadastro de usuário" width="240">
 
-Figura 16 – Formulário de cadastro de usuário
+Figura 19 – Formulário de cadastro de usuário
 
 Fonte: Os autores (2026)
 
@@ -497,19 +511,19 @@ Abaixo se encontram algumas das telas da aplicação Web, destinada aos organiza
 
 <img src="assets/tela-web-cadastro-usuario.png" alt="Formulário de cadastro de usuário (Web)" width="720">
 
-Figura 17 – Formulário de cadastro de usuário (Web)
+Figura 20 – Formulário de cadastro de usuário (Web)
 
 Fonte: Os autores (2026)
 
 <img src="assets/tela-web-home.png" alt="Meus Eventos" width="720">
 
-Figura 18 – Meus Eventos
+Figura 21 – Meus Eventos
 
 Fonte: Os autores (2026)
 
 <img src="assets/tela-web-gerenciando-lote.png" alt="Gerenciamento de lotes de ingressos" width="720">
 
-Figura 19 – Gerenciamento de lotes de ingressos
+Figura 22 – Gerenciamento de lotes de ingressos
 
 Fonte: Os autores (2026)
 
